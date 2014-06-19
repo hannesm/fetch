@@ -5,5 +5,8 @@ CSTD?=		c99
 LDFLAGS=	-lssl -lcrypto
 CFLAGS+=	-I../libfetch
 
-build: fetch.o
+build : fetch.o
 	$(CC) $(LDFLAGS) $(CFLAGS) -o $(PROG) fetch.o ../libfetch/libfetch.a
+
+clean :
+	rm -f fetch fetch.o
