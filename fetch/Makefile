@@ -1,15 +1,9 @@
 # $FreeBSD$
 
-.include <bsd.own.mk>
-
 PROG=		fetch
 CSTD?=		c99
-.if ${MK_OPENSSL} != "no"
-DPADD=		${LIBFETCH} ${LIBSSL} ${LIBCRYPTO}
-LDADD=		-lfetch -lssl -lcrypto
-.else
-DPADD=		${LIBFETCH} ${LIBMD}
-LDADD=		-lfetch -lmd
-.endif
+LDFLAGS=	-lssl -lcrypto
+CFLAGS+=	-I../libfetch
 
-.include <bsd.prog.mk>
+build: fetch.o
+	$(CC) $(LDFLAGS) $(CFLAGS) -o $(PROG) fetch.o ../libfetch/libfetch.a
